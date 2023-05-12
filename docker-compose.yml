@@ -26,6 +26,8 @@ services:
 #3307 port because I have mysql installed locally and served on port 3306.
     ports:
       - "3307:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_USER: user 
