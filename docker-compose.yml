@@ -19,17 +19,18 @@ services:
       - laravel
 
   mysql:
-    image: mysql:5.7.29
+    image: mysql:8
     container_name: mysql
     restart: unless-stopped
     tty: true
+#3307 port because I have mysql installed locally and served on port 3306.
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: user 
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
@@ -58,24 +59,24 @@ services:
     networks:
       - laravel
 
-  npm:
-    image: node:13.7
-    container_name: npm
-    volumes:
-      - ./src:/var/www/html
-    working_dir: /var/www/html
-    entrypoint: ['npm']
+#  npm:
+#    image: node:13.7
+#    container_name: npm
+#    volumes:
+#      - ./src:/var/www/html
+#    working_dir: /var/www/html
+#    entrypoint: ['npm']
 
-  artisan:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: artisan
-    volumes:
-      - ./src:/var/www/html
-    depends_on:
-      - mysql
-    working_dir: /var/www/html
-    entrypoint: ['php', '/var/www/html/artisan']
-    networks:
-      - laravel
+#  artisan:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: artisan
+#    volumes:
+#      - ./src:/var/www/html
+#    depends_on:
+#      - mysql
+#    working_dir: /var/www/html
+#    entrypoint: ['php', '/var/www/html/artisan']
+#    networks:
+#      - laravel
